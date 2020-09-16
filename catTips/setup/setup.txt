@@ -1,0 +1,8 @@
+	 * Please format your setup file like this:
+	 * 
+	 * Line one, name of the profile: Cat Tips
+	 * Sender email address: cattips@catlover.com
+	 * Sender email password password1
+	 * SMTP host: mail.smtp.host
+	 * SMTP relay: smtp.mail.com
+	 * UNIX time between automated messages: 86000

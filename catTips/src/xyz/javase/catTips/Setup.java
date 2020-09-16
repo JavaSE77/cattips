@@ -30,7 +30,7 @@ public class Setup {
 	           br = new BufferedReader(new FileReader(loc));		
 
 
-		   System.out.println("Setting up\n");
+		   System.out.println("Setting up from file " + loc +"\n");
 		   String contentLine = br.readLine();
 		   while (contentLine != null) {
 			   list.add(contentLine);

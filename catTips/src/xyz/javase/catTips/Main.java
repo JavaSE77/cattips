@@ -4,7 +4,6 @@ import java.util.List;
 
 import xyz.javase.catTips.email.EmailHandler;
 import xyz.javase.catTips.generate.FileHandler;
-import xyz.javase.catTips.subcribers.ProviderLookup;
 
 public class Main {
 

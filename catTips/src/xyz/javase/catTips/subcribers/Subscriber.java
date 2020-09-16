@@ -8,22 +8,23 @@ import java.util.List;
 
 public class Subscriber {
 	
-	private Long date = System.currentTimeMillis();
-	private int hour = 3600;
+
 	private String flname;
-	private String subAddress;
 	private List<String> fileStruct;
 
 	/**
 	 * String name is the name of the subscribers file
 	 * String address is the address, including the @ will be sent the message
 	 * */
-	public Subscriber(String fileName, String address) {
+	public Subscriber(String fileName) {
 		flname = fileName;
-		subAddress = address;
-		fileStruct = fillArray();
+		fileStruct = Setup.getSubInfoFromFile(flname);
 	}
 	
+	/**
+	 * Checks the struct to see if there is any data in it
+	 * @return boolean value
+	 * */
 	public boolean isInitialized() {
 		if(fileStruct.get(0) != null)
 			return true;
@@ -31,52 +32,26 @@ public class Subscriber {
 		return false;
 	}
 	
+	
+	/**
+	 * fetches email from struct
+	 * @return String with email address
+	 * */
+	public String getAddress() {
+		return fileStruct.get(0) + "@" + fileStruct.get(1);
+	}
+	
+	
+	/**
+	 * Gets the unix time stamp of the last time an email was sent to the user
+	 * @return long
+	 * */
 	public long getLastSent() {
-		Long lastSent = (long) 0;
+		Long lastSent = (long) Long.parseLong(fileStruct.get(3));
 		
 		return lastSent;
 	}
 	
-	private List<String> fillArray() {
-		List<String> list = new ArrayList<>();
-		
-	       BufferedReader br = null;
-	       try{	
-	           br = new BufferedReader(new FileReader(flname));		
-
-
-		   System.out.println("Reading tip: " + flname);
-		   String contentLine = br.readLine();
-		   while (contentLine != null) {
-			   list.add(contentLine);
-		      contentLine = br.readLine();
-		   }
-	       }
-	       catch (IOException ioe) 
-	       {
-		   ioe.printStackTrace();
-	       } 
-	       finally 
-	       {
-		   try {
-		      if (br != null)
-			 br.close();
-		   } 
-		   catch (IOException ioe) 
-	           {
-			System.out.println("Error in closing the BufferedReader");
-		   }
-		}
-		
-		return list;
-	}
-	
-	/**
-	 * Buffered file writer writes contents of arraylist into subscriber file.
-	 * */
-	public void updateSubscriberInfo() {
-		
-	}
 	
 	/**
 	 * Getter method
@@ -93,11 +68,10 @@ public class Subscriber {
 	 * par2 is the after @ part of the address
 	 * */
 	public void setAddress(String par1, String par2) {
-		subAddress = par1 + "@" + par2;
 		fileStruct.set(0, par1);
 		fileStruct.set(1, par2);
 		
-		updateSubscriberInfo();
+		Setup.updateSubscriberInfo(flname, fileStruct);
 
 	}
 	
@@ -107,9 +81,9 @@ public class Subscriber {
 	 * */
 	public boolean checkActiveStatus() {
 		
-		String l3 = fileStruct.get(2);
+		String l2 = fileStruct.get(2);
 		
-		if(l3.equalsIgnoreCase("active=true"))
+		if(l2.equalsIgnoreCase("active=true"))
 			return true;
 		
 		return false;
@@ -126,6 +100,22 @@ public class Subscriber {
 		} else {
 			fileStruct.set(2, "active=false");
 		}
-		updateSubscriberInfo();
+		Setup.updateSubscriberInfo(flname, fileStruct);
 	}
+	
+	
+	/**
+	 * Sets the current time as the last sent time
+	 * set this parm to -1 for the current time. 0 to send a tip on the scheduled run
+	 * */
+	public void setLastSent(Long unixTime) {
+		if(unixTime < 0) {
+			unixTime = System.currentTimeMillis();
+		}
+		
+		fileStruct.set(3, ("" +unixTime));
+		Setup.updateSubscriberInfo(flname, fileStruct);
+		
+	}
+	
 }
