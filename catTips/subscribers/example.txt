@@ -1,0 +1,5 @@
+//This is an example file. This file will not be read by the program. Please format your subscriber files like so
+First line is their email or phone number
+The second line is the provider. Either and sms gateway or an email provider
+The third line is a boolean value. If the value != true, then no messages will be send
+The forth line contains the unix time of the last message sent to the user. 
