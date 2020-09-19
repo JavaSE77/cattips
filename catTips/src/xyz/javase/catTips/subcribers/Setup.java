@@ -66,7 +66,7 @@ public class Setup {
             BufferedWriter bw = new BufferedWriter(fw);
             
             for(int i = 0; i < struc.size(); i++) {
-            	bw.write(struc.get(i));
+            	bw.write(struc.get(i) + "\n");
             }
             
             

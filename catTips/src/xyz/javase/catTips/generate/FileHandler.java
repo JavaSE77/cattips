@@ -39,10 +39,10 @@ public class FileHandler {
 	}
 	
 	/**
-	 * private method for getting a tip from a path
+	 * public method for getting a tip from a path
 	 * @return string
 	 * */
-	private static String getTip(String path) {
+	public static String getTip(String path) {
 		
 		String tip = "";
 		
@@ -87,7 +87,7 @@ public class FileHandler {
 		List<String> list = new ArrayList<>();
 		
 	       BufferedReader br = null;
-	       try{	
+	       try {	
 	           br = new BufferedReader(new FileReader(cwd + File.separator +flname));		
 
 
@@ -117,5 +117,26 @@ public class FileHandler {
 		return list;
 	}
 	
+	
+
+	/**
+	 * Returns a list of strings to the location of subscribers
+	 * @return string
+	 * */
+	public static List<String> getSubscriberFileNames() {
+		
+		String cwd = System.getProperty("user.dir");
+		File subDir = new File(cwd + File.separator + "subscribers");
+		
+		File subList[] = subDir.listFiles();
+		List<String> list = new ArrayList<>();
+		
+		for(int i = 0; i < subList.length; i++) {
+			list.add(subList[i].getPath());
+			
+		}
+		
+		return list;
+	}
 }
 

@@ -44,7 +44,7 @@ public class EmailHandler {
 	 * String subject will be the subject of the message
 	 * String message will be the message sent to the user
 	 * */
-	protected void sendEmail(String recipient, String subject, String message) { 
+	public void sendEmail(String recipient, String subject, String message) { 
 		
 	    Properties props = new Properties();
 	    props.put(mailHost, mailHostname);
@@ -52,7 +52,7 @@ public class EmailHandler {
 
 	    try {
 	        MimeMessage msg = new MimeMessage(session);
-	        msg.setFrom(sender);
+	        msg.setFrom(username);
 	        msg.setRecipients(Message.RecipientType.TO,
 	                          recipient);
 	        msg.setSubject(subject);
@@ -61,7 +61,8 @@ public class EmailHandler {
 	        Transport.send(msg, username, password);
 	        System.out.println("Email has been sent");
 	    } catch (MessagingException mex) {
-	        System.out.println("send failed, exception: " + mex);
+	    	System.out.println(recipient);
+	        System.out.println(" send failed, exception: " + mex);
 	    }
 
 		
@@ -88,7 +89,7 @@ public class EmailHandler {
 
 	    try {
 	        MimeMessage msg = new MimeMessage(session);
-	        msg.setFrom(sender);
+	        msg.setFrom(username);
 	        msg.setRecipients(Message.RecipientType.TO,
 	                          recipient);
 	        msg.setSubject(msgArray.get(0));
