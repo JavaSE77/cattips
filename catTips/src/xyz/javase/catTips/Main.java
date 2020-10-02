@@ -28,6 +28,8 @@ public class Main {
 		
 		EmailHandler emailHandler = new EmailHandler(setup.get(0),setup.get(1),setup.get(2),setup.get(3),setup.get(4));
 		
+		emailHandler.sendEmail("7173311127@mymetropcs.com", "DEBUG", "Cat tips has started at: " + System.currentTimeMillis());
+		
 		List<Subscriber> subs = new ArrayList<>();
 		
 		String catTip = FileHandler.generateCatTip();
