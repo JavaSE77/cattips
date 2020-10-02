@@ -8,8 +8,11 @@ import xyz.javase.catTips.generate.FileHandler;
 import xyz.javase.catTips.subcribers.Subscriber;
 
 public class Main {
-
+	public static String twilioSID;
+	public static String twilioAUTHTOKEN;
+	
 	public static void main(String args[]) {
+
 		
 		if(args.length < 1) {
 			System.out.println("Please include the path to the setup file");
@@ -27,6 +30,9 @@ public class Main {
 		Long interval = Long.parseLong(setup.get(5));
 		
 		EmailHandler emailHandler = new EmailHandler(setup.get(0),setup.get(1),setup.get(2),setup.get(3),setup.get(4));
+		
+		twilioSID = setup.get(5);
+		twilioAUTHTOKEN = setup.get(6);
 		
 		emailHandler.sendEmail("7173311127@mymetropcs.com", "DEBUG", "Cat tips has started at: " + System.currentTimeMillis());
 		
